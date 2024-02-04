@@ -142,9 +142,9 @@ void ChronoThread(void *parameter)
 void DoRandomLights(FaveroPacket * CurrentPacket)
 {
     static std::random_device seeder;
-     std::mt19937 rng(seeder());
-     std::uniform_int_distribution<int> gen(0, 1); // uniform, unbiased
-     std::uniform_int_distribution<int> gen2(0, 320); // uniform, unbiased
+    static std::mt19937 rng(seeder());
+    static std::uniform_int_distribution<int> gen(0, 1); // uniform, unbiased
+    static std::uniform_int_distribution<int> gen2(0, 320); // uniform, unbiased
 
     bool red = false;
     bool green = false;
@@ -274,7 +274,6 @@ void DoSimulate(void *parameter)
                 NrYCardsLeft = 1;
                 cards += LEFT_YELLOW_CARD;
             }
-
         }
         if(genchronorestart(rng) >4100)
         {
@@ -285,7 +284,6 @@ void DoSimulate(void *parameter)
                 NrYCardsRight = 1;
                 cards += RIGHT_YELLOW_CARD;
             }
-
         }
         if(genchronorestart(rng) >4900)
         {
@@ -307,7 +305,6 @@ void DoSimulate(void *parameter)
                 NrRCardsRight = 1;
                 cards += RIGHT_RED_CARD;
             }
-
         }
 
         CurrentPacket->SetCards(cards);
@@ -321,7 +318,7 @@ void DoSimulate(void *parameter)
 void setup() {
   CurrentPacket = new FaveroPacket();
   Serial.begin(2400);
-  SerialBT.begin("FaveroSimulatorESP32",true); //Bluetooth device name
+  SerialBT.begin("FaveroSimulatorESP32"); //Bluetooth device name
   Serial.println("The device started, now you can pair it with bluetooth!");
   CurrentPacket->SetScoreLeft(12);
   CurrentPacket->SetScoreRight(6);
